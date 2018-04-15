@@ -10,17 +10,18 @@
  * @license  https://bar.baz/ MIT License
  * @link     None
  */
+namespace Php01;
 
 $metaVars = ['foo' => 'Alice', 'bar' => 'Bob', 'baz' => 'Carol'];
 echo $metaVars.'<br>';
 var_dump($metaVars);
 
 if (in_array('Bob', $metaVars)) {
-    echo 'if statement is TRUE!'.'<br>';
+    echo 'if statement is TRUE! "value=Bob" found.'.'<br>';
 }
 if (array_key_exists('qux', $metaVars)) {
 } else {
-    echo 'if statement is FALSE!'.'<br>';
+    echo 'if statement is FALSE! "key=qux" not found.'.'<br>';
 }
 echo '<br>';
 

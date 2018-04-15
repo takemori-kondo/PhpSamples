@@ -10,6 +10,7 @@
  * @license  https://bar.baz/ MIT License
  * @link     None
  */
+namespace Php01;
 
 echo 'Hello, World';
 phpinfo();
