@@ -12,8 +12,8 @@
  */
 namespace Php01;
 
-require_once __DIR__.'/my-class.php';
-require_once __DIR__.'/my-class-mk2.php';
+require_once __DIR__.'/MyClass.php';
+require_once __DIR__.'/MyClassMk2.php';
 
 var_dump(MyClass::$staticProperty);
 MyClass::staticMethod();

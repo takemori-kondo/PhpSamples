@@ -12,7 +12,7 @@
  */
 namespace Php01;
 
-require_once __DIR__.'/db-mysql.php';
+require_once __DIR__.'/DBMysql.php';
 
 // Get pdo instance.
 $pdo = DBMysql::getPdo();
