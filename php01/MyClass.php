@@ -15,7 +15,11 @@ namespace Php01;
  */
 class MyClass
 {
-    // Class(static) property
+    /**
+     * Class(static) property
+     *
+     * @var string $staticProperty
+     */
     public static $staticProperty = "staticProperty's value";
 
     /**
