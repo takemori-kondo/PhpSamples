@@ -14,8 +14,7 @@
 namespace Php03;
 
 require_once "vendor/autoload.php";
-
-use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
+require_once __DIR__.'/Email.php';
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -28,24 +27,12 @@ try {
     // https://mailtrap.io/
     $host = 'smtp.mailtrap.io';
     $port = 2525;
-    $authUser = '7387aad7ba7380';
-    $authPass = '5537ae2f39e233';
-    $to = $email;
+    $user = '7387aad7ba7380';
+    $pass = '5537ae2f39e233';
+    $toList = [$email];
     $from = 'user01@example.com';
     $fromName = 'ユーザー01';
     $subject = '【お問い合わせサンプル】お問い合わせありがとうございました';
-    $body = getBodyText($name, $email, $sex, $inquiryType, $inquiryDetails);
-    $errorInfo = sendMail($host, $port, $authUser, $authPass, $to, $from, $fromName, $subject, $body);
-    if (!empty($errorInfo) && 0 < strlen($errorInfo)) {
-        throw new \Exception($errorInfo);
-    }
-    header("Location: ./inquiry-complete.html");
-} catch (\Exception $e) {
-    header("Location: ./inquiry-error.php?error-text=".$e->getMessage());
-}
-
-function getBodyText($name, $email, $sex, $inquiryType, $inquiryDetails)
-{
     $body = <<<EOT
 【お問い合わせサンプル】より
 
@@ -58,29 +45,12 @@ EOT;
     $body .= '性別'."\n".$sex."\n\n";
     $body .= 'お問い合わせ種類'."\n".$inquiryType."\n\n";
     $body .= 'お問い合わせ内容'."\n".$inquiryDetails."\n\n";
-    return $body;
-}
 
-function sendMail($host, $port, $authUser, $authPass, $to, $from, $fromName, $subject, $body)
-{
-    // Let's use PHPMailer.
-    // composer require phpmailer/phpmailer
-    $phpmailer = new PHPMailer();
-    $phpmailer->CharSet = "UTF-8";
-
-    $phpmailer->isSMTP();
-    $phpmailer->isHtmL(false);
-    $phpmailer->Host = $host;
-    $phpmailer->SMTPAuth = true;
-    $phpmailer->SMTPSecure = 'tls';
-    $phpmailer->Port = $port;
-    $phpmailer->Username = $authUser;
-    $phpmailer->Password = $authPass;
-    $phpmailer->addAddress($to);
-    $phpmailer->From = $from;
-    $phpmailer->FromName = $fromName;
-    $phpmailer->Subject = mb_encode_mimeheader($subject); // Base64
-    $phpmailer->Body = $body;
-    $phpmailer->send();
-    return $phpmailer->ErrorInfo;
+    $smtp = new Email($host, $port, $user, $pass);
+    $smtp->send($toList, null, null, $from, $fromName, $subject, $body);
+    $smtp->send(null, [$from], null, $from, $fromName, $subject, $body);
+    $smtp->send(null, null, [$from], $from, $fromName, $subject, $body);
+    header("Location: ./inquiry-complete.html");
+} catch (\Exception $e) {
+    header("Location: ./inquiry-error.php?error-text=".$e->getMessage());
 }
