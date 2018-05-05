@@ -80,20 +80,20 @@ class DataSource
     /**
      * Add todo.
      *
-     * @param \PDO   $pdo pdo instance.
+     * @param \PDO $pdo pdo instance.
      *
      * @return \PDOStatement
      */
     public static function addTodo($pdo)
     {
-        $pdo->query("INSERT INTO todos(name, content) values('新しいTODO', '内容を入力してください')");
+        return $pdo->query("INSERT INTO todos(name, content) values('新しいTODO', '内容を入力してください')");
     }
 
     /**
      * Update all todos.
      *
-     * @param \PDO  $pdo    pdo instance.
-     * @param array $todos  ["<id>" => ["name" => "<name>", "content" => "<content>"]];.
+     * @param \PDO  $pdo   pdo instance.
+     * @param array $todos ["<id>" => ["name" => "<name>", "content" => "<content>"]];.
      *
      * @return \PDOStatement
      */
@@ -106,6 +106,7 @@ class DataSource
             $stmt->bindParam(':content', $assoc['content'], \PDO::PARAM_STR);
             $stmt->execute();
         }
+        return $stmt;
     }
 
     /**
