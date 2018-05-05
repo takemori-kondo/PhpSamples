@@ -12,8 +12,8 @@
  */
 namespace Php02;
 
-require_once __DIR__.'/db-mysql.php';
-require_once __DIR__.'/data-source.php';
+require_once __DIR__.'/DBMysql.php';
+require_once __DIR__.'/DataSource.php';
 
 $pdo = DataSource::openOrInitializeDB();
 
