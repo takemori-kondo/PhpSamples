@@ -27,7 +27,7 @@ $pdo->exec("USE ".$dbName);
 // If table does not exist, creating it.
 $tableName = 'sample_values';
 if ($pdo->query("SHOW TABLES LIKE '$tableName'")->rowCount() <= 0) {
-    $sql = "CREATE TABLE ".$tableName."(id INT AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY(id))";
+    $sql = "CREATE TABLE ".$tableName."(id BIGINT AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY(id))";
     $pdo->exec($sql);
     $names = ['Alice', 'Bob', 'Carol', 'Dave'];
     $stmt = $pdo->prepare("INSERT INTO ".$tableName."(name) values(:name)");
