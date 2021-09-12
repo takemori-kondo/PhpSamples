@@ -36,6 +36,8 @@ if ($pdo->query("SHOW TABLES LIKE '$tableName'")->rowCount() <= 0) {
 // Select table and output
 $tableName = 'sample_values';
 $stmt = $pdo->query("SELECT * FROM ".$tableName." ORDER BY id");
+echo "<pre>\n";
 foreach ($stmt as $value) {
     var_dump($value);
 }
+echo "</pre>";
