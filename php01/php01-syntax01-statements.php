@@ -78,14 +78,14 @@ foreach ($dic as $key => $val) {
 echo '<h2>関数、配列、インスタンス</h2>'."\n";
 echo '配列は値型ライク、配列とインスタンスの変換は生成される'."\n";
 function echoCompare(mixed $arg1, mixed $arg2, string $text) {
-	$isEqual = ($arg1 === $arg2);
-	echo '<strong>{$text}</strong>'."<br>\n";
-	var_dump($arg1);
-	echo "<br>\n";
-	var_dump($arg2);
-	echo "<br>\n";
-	var_dump($isEqual);
-	echo "<br>\n";
+    $isEqual = ($arg1 === $arg2);
+    echo '<strong>{$text}</strong>'."<br>\n";
+    var_dump($arg1);
+    echo "<br>\n";
+    var_dump($arg2);
+    echo "<br>\n";
+    var_dump($isEqual);
+    echo "<br>\n";
 }
 $ary1 = ['key1' => 'val1', 'key2' => 'val2'];
 $ary2 = $ary1;
