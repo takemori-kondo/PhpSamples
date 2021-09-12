@@ -1,7 +1,7 @@
 <?php
 // PHP Version 8.1
 
-namespace Php01;
+namespace Php01\Classes;
 
 class MyClassMk2 extends MyClass
 {

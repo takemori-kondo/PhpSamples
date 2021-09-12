@@ -5,10 +5,12 @@ namespace Php01;
 
 ini_set('display_errors', 1);
 
-echo '<h1>'.__FILE__.'</h1>'."\n";
+require_once 'myautoload.php';
 
-require_once __DIR__.'/Classes/MyClass.php';
-require_once __DIR__.'/Classes/MyClassMk2.php';
+use \Php01\Classes\MyClass;
+use \Php01\Classes\MyClassMk2;
+
+echo '<h1>'.__FILE__.'</h1>'."\n";
 
 var_dump(MyClass::$staticProperty);
 MyClass::staticMethod();
@@ -35,8 +37,7 @@ PHPのオブジェクト指向とstaticの関係は他の言語と異なる。
 <Class名>::、self::、static::、parent::いずれもいわゆる他の言語で言うところのインスタンスメソッドがコール可能である。
 オブジェクトメソッドか、staticに呼ばれるかは、呼び出し元の文脈で決まり、$thisも文脈に従う。
 
-同一名前空間のClassを使用する場合、クラス名に\は付けなくてもよい
-異なる名前空間のClassを使用する場合、クラス名に¥をつけることが推奨される
+ErrorExceptionなどの標準クラスは直接¥を書くのが早い
 
 use        require_onceはファイル読み込み、useは名前空間の解決(他の用途でtraitの利用)
 self::     記述位置のクラスのメソッドを呼ぶ
