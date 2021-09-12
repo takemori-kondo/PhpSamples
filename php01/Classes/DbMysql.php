@@ -1,32 +1,12 @@
 <?php
+// PHP Version 8.1
 
-namespace Php01;
+namespace Php01\Classes;
 
-/**
- * PDO Provider for MySQL.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
-class DBMysql
+class DbMysql
 {
-    /**
-     * Inner variable.
-     *
-     * @var \PDO $pdo
-     */
     protected static $pdo;
 
-    /**
-     * Singleton getter.
-     *
-     * @return \PDO
-     */
     public static function getPdo()
     {
         if (static::$pdo == null) {
@@ -35,11 +15,6 @@ class DBMysql
         return static::$pdo;
     }
 
-    /**
-     * Create pdo instance.
-     *
-     * @return \PDO;
-     */
     protected static function newPdo()
     {
         try {
@@ -55,6 +30,7 @@ class DBMysql
             $created->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
             return $created;
         } catch (\Exception $e) {
+        	throw new \ErrorException('DB Error が発生しました。');
         }
     }
 }

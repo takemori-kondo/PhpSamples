@@ -1,22 +1,18 @@
 <?php
-/**
- * PDO sample.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
+// PHP Version 8.1
+
 namespace Php01;
 
-require_once __DIR__.'/DBMysql.php';
+ini_set('display_errors', 1);
 
-// Get pdo instance.
-$pdo = DBMysql::getPdo();
- 
+require_once 'myautoload.php';
+
+use \Php01\Classes\DbMysql;
+
+echo '<h1>'.__FILE__.'</h1>'."\n";
+
+$pdo = DbMysql::getPdo();
+
 // If DB does not exist, creating it.
 $dbName = 'php_sample';
 if ($pdo->query("SHOW DATABASES LIKE '$dbName'")->rowCount() <= 0) {
