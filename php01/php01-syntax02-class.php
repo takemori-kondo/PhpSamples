@@ -1,19 +1,14 @@
 <?php
-/**
- * Class definition sample.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
+// PHP Version 8.1
+
 namespace Php01;
 
-require_once __DIR__.'/MyClass.php';
-require_once __DIR__.'/MyClassMk2.php';
+ini_set('display_errors', 1);
+
+echo '<h1>'.__FILE__.'</h1>'."\n";
+
+require_once __DIR__.'/Classes/MyClass.php';
+require_once __DIR__.'/Classes/MyClassMk2.php';
 
 var_dump(MyClass::$staticProperty);
 MyClass::staticMethod();
@@ -23,6 +18,14 @@ $b = new MyClass('Bar');
 $b->instanceMethod();
 $c = new MyClassMk2('Baz');
 $c->instanceMethod();
+
+echo "<br>\n";
+var_dump($a);
+echo "<br>\n";
+var_dump($b);
+echo "<br>\n";
+var_dump($c);
+echo "<br>\n";
 
 /*
 PHP Specific Features
