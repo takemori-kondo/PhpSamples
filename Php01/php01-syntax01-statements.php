@@ -29,10 +29,10 @@ echo '<h2>文字列リテラル3種</h2>'."\n";
 $val = '$valの中身';
 $simple = 'シングルクォートは変数展開されない:{$val}';
 $interpolation = "ダブルクォートは変数展開される:{$val}";
-$here = <<<EOD
+$here = <<<"HEREDOC"
 これはヒアドキュメントです
-シングルクォートで囲まないEODは変数展開されます。:{$val}
-EOD;
+お作法として、ヒアドキュメントIDは必ず"か'で囲んだほうが分かりやすいです。:{$val}
+HEREDOC;
 echo '<pre>'."\n";
 echo $simple."\n";
 echo $interpolation."\n";
