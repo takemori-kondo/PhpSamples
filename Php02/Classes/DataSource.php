@@ -1,18 +1,10 @@
 <?php
+// PHP Version 8.1
+declare(strict_types=1);
+namespace Php02\Classes;
 
-namespace Php02;
+use \Php02\Classes\DbSqlite;
 
-/**
- * Todo data source.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
 class DataSource
 {
     /**
@@ -24,20 +16,26 @@ class DataSource
      */
     public static function openOrInitializeDB($dbName = 'todo_list')
     {
-        // Connect DB server.
-        $pdo = DBMysql::getPdo();
+        // $pdo = DbMysql::getPdo();
+        $pdo = DBSqlite::getPdo();
 
-        // Open or create DB.
+        // If DB does not exist, creating it.
+        /*
         if ($pdo->query("SHOW DATABASES LIKE '$dbName'")->rowCount() <= 0) {
             $pdo->exec("CREATE DATABASE ".$dbName);
         }
         $pdo->exec("USE ".$dbName);
+        */
 
-        // Open or create table.
-        $tableName = 'todos';
-        if ($pdo->query("SHOW TABLES LIKE '$tableName'")->rowCount() <= 0) {
+        // If table does not exist, creating it.
+        
+        // $selectTableName = "SHOW TABLES LIKE '$tableName'";
+        $selectTableName = "SELECT name FROM sqlite_master WHERE type='table' AND name='todos'";
+        $data = $pdo->query($selectTableName)->fetchAll();
+        if (count($data) <= 0) {
+            /*
             // This sql requires mysql5.6/mariadb10.1 or more.
-            $sql1 = "CREATE TABLE ".$tableName
+            $sql1 = "CREATE TABLE todos"
                 ."( id       INT AUTO_INCREMENT"
                 .", name     VARCHAR(255)"
                 .", content  VARCHAR(255)"
@@ -45,9 +43,16 @@ class DataSource
                 .", modified DATETIME DEFAULT CURRENT_TIMESTAMP"
                 ."                    ON UPDATE CURRENT_TIMESTAMP"
                 .", PRIMARY KEY(id))";
+            */
+            $sql1 = "CREATE TABLE todos"
+                ."( id INTEGER PRIMARY KEY"
+                .", name"
+                .", content"
+                .", created"
+                .", modified)";
             $pdo->exec($sql1);
 
-            $sql2 = "INSERT INTO ".$tableName
+            $sql2 = "INSERT INTO todos"
                 ."       ( name,  content)"
                 ." values(:name, :content)";
             $stmt = $pdo->prepare($sql2);
@@ -86,7 +91,8 @@ class DataSource
      */
     public static function addTodo($pdo)
     {
-        return $pdo->query("INSERT INTO todos(name, content) values('新しいTODO', '内容を入力してください')");
+        // return $pdo->query("INSERT INTO todos(name, content) values('新しいTODO', '内容を入力してください')");
+        return $pdo->query("INSERT INTO todos(name, content, created, modified) values('新しいTODO', '内容を入力してください', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)");
     }
 
     /**
@@ -99,7 +105,8 @@ class DataSource
      */
     public static function updateAllTodos($pdo, $todos)
     {
-        $stmt = $pdo->prepare("UPDATE todos SET name=:name, content=:content WHERE id=:id");
+        // $stmt = $pdo->prepare("UPDATE todos SET name=:name, content=:content WHERE id=:id");
+        $stmt = $pdo->prepare("UPDATE todos SET name=:name, content=:content, modified=CURRENT_TIMESTAMP WHERE id=:id");
         foreach ($todos as $id => $assoc) {
             $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
             $stmt->bindParam(':name', $assoc['name'], \PDO::PARAM_STR);

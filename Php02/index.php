@@ -1,22 +1,13 @@
 <?php
-/**
- * TODO list sample's index.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
+// PHP Version 8.1
+declare(strict_types=1);
 namespace Php02;
 
-require_once __DIR__.'/DBMysql.php';
-require_once __DIR__.'/DataSource.php';
-require_once __DIR__.'/functions.php';
+require_once 'myautoload.php';
 
-// Get pdo instance.
+use Php02\Classes\DataSource;
+use Php02\Classes\DateTimeUtil;
+
 $pdo = DataSource::openOrInitializeDB();
 $stmt = DataSource::getAllTodos($pdo);
 ?>
@@ -39,8 +30,10 @@ $stmt = DataSource::getAllTodos($pdo);
                 <?php $iTab = 1; ?>
                 <?php foreach ($stmt as $key => $value) : ?>
                 <div>
+                    <input name="todos[<?php echo $value['id']; ?>][name_old]" value="<?php echo $value['name']; ?>" type="hidden">
                     <input name="todos[<?php echo $value['id']; ?>][name]" value="<?php echo $value['name']; ?>"
                         tabindex="<?php echo $iTab++; ?>" type="text">
+                    <input name="todos[<?php echo $value['id']; ?>][content_old]" value="<?php echo $value['content']; ?>" type="hidden">
                     <input name="todos[<?php echo $value['id']; ?>][content]" value="<?php echo $value['content']; ?>"
                         tabindex="<?php echo $iTab++; ?>" type="text">
                     <button name="delete" onclick="submitDataTo('./delete.php', '<?php echo $value['id']; ?>')"
@@ -48,11 +41,17 @@ $stmt = DataSource::getAllTodos($pdo);
                     作成日:
                     <?php
                     $strUtcDate = $value['created'];
-                    echo strUtcToStrTokyo($strUtcDate); ?>
+                    if (!empty($strUtcDate)) {
+                        echo DateTimeUtil::strUtcToStrTokyo($strUtcDate);
+                    }
+                    ?>
                     更新日:
                     <?php
                     $strUtcDate = $value['modified'];
-                    echo strUtcToStrTokyo($strUtcDate); ?>
+                    if (!empty($strUtcDate)) {
+                        echo DateTimeUtil::strUtcToStrTokyo($strUtcDate);
+                    }
+                    ?>
                 </div>
                 <?php endforeach ?>
                 <div>
@@ -64,7 +63,7 @@ $stmt = DataSource::getAllTodos($pdo);
             </form>
         </main>
         <footer>
-            <div>Copyright © 2018 &lt;your name&gt; All Rights Reserved. </div>
+            <div>Copyright © 2022 &lt;your name&gt; All Rights Reserved. </div>
         </footer>
     </div>
     <script>
