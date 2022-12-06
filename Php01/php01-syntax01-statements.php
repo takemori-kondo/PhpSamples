@@ -1,9 +1,45 @@
 <?php
 // PHP Version 8.1
-declare(strict_types=1, encoding='UTF-8');
+declare(strict_types=1);
 namespace Php01;
-ini_set('display_errors', 1);
 
+/*
+マルチバイトのベストプラクティス
+1. ファイル名にマルチバイトを含めない
+2. 可能な限りBOMなしUTF-8で統一する
+3. 文字列操作には必ずmbを使用し、mbでない文字列操作の標準ライブラリやブラケット構文を使わない
+    - mb_strlen
+    - mb_strtolower
+    - mb_strtoupper
+    - mb_substr
+    - mb_ereg_replace
+    - mb_split
+    - mb_strpos
+    - mb_strrpos
+    - mb_convert_kana
+4. php.ini あるいは .user.ini
+; Core
+; default_charset ("UTF-8")
+; zend.multibyte (0)
+; zend.script_encoding (NULL)
+;    ファイルエンコーディングがSJIS等でなければscript_encodingはデフォルトのISO-8859-1(Latin-1)で問題ない
+;    ファイル中のリテラルはdefault_charset(internal_encoding)で処理されるため、問題ない
+;    なお、ファイルエンコーディングをファイル個別に指定するdeclare(encoding=...)は、この機能を有効にしないと機能しない
+; mbstring
+mbstring.detect_order = UTF-8,EUC-JP,SJIS,JIS,ASCII
+; mbstring.language ("neutral")
+;    この値は、具体的にはmb_encode_mimeheader、mb_send_mailの2つに影響する
+;    メールは今でもISO-2022-JP(=JIS)で送るべきだ、と思う人はJapaneseに設定する
+; mbstring.encoding_translation (0)
+mbstring.http_input = NULL
+mbstring.http_output = NULL
+; mbstring.http_output_conv_mimetypes ("^(text/|application/xhtml\+xml)")
+; mbstring.internal_encoding (NULL)
+; mbstring.regex_retry_limit (1000000)
+; mbstring.regex_stack_limit (100000)
+; mbstring.strict_detection (0)
+; mbstring.substitute_character (NULL)
+*/
 echo '<h1>'.__FILE__.'</h1>'."\n";
 
 echo '<h2>変数</h2>'."\n";

@@ -1,5 +1,8 @@
 <?php
 // PHP Version 8.1
+declare(strict_types=1);
+namespace Php01;
+
 /*
 PHP Specific Features
 
@@ -28,10 +31,6 @@ foreach          インスタンスに対してforeach可能
 ==               同じ型であり、全てのプロパティが==比較でTrueかを調べる
 ===              参照一致かどうか
 */
-declare(strict_types=1, encoding='UTF-8');
-namespace Php01;
-ini_set('display_errors', 1);
-
 require_once 'myautoload.php';
 
 use Php01\Classes\MyClass;

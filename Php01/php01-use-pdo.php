@@ -1,9 +1,7 @@
 <?php
 // PHP Version 8.1
-
+declare(strict_types=1);
 namespace Php01;
-
-ini_set('display_errors', 1);
 
 require_once 'myautoload.php';
 

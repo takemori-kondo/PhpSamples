@@ -1,6 +1,6 @@
 <?php
 // PHP Version 8.1
-
+declare(strict_types=1);
 namespace Php01\Classes;
 
 class DbMysql

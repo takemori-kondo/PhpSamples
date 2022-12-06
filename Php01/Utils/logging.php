@@ -1,5 +1,6 @@
 <?php
 // PHP Version 8.1
+declare(strict_types=1);
 
 function logInner($level, $msg) {
     $datetime = date('c');
