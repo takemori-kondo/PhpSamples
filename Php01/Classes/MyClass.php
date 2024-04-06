@@ -1,6 +1,7 @@
 <?php
 // PHP Version 8.1
 declare(strict_types=1);
+
 namespace Php01\Classes;
 
 class MyClass
@@ -9,7 +10,14 @@ class MyClass
 
     public static function staticMethod(): void
     {
-        echo 'staticMethod() called' . "<br>\n";
+        echo 'staticMethod() called' . "\n";
+        static::staticMethod2();
+        self::staticMethod2();
+    }
+
+    protected static function staticMethod2(): void
+    {
+        echo 'MyClass\'s staticMethod2 called' . "\n";
     }
 
     // static
@@ -20,13 +28,12 @@ class MyClass
 
     public function __construct(string $p1)
     {
-        echo '__construct($p1) called. $p1 is ' . $p1 . "<br>\n";
+        echo '__construct($p1) called. $p1 is ' . $p1  . "\n";
         $this->instanceProperty = $p1;
     }
 
     public function instanceMethod(): void
     {
-        echo 'instanceMethod() called.' . "<br>\n";
-        echo '$instanseProperty=' . $this->instanceProperty . "<br>\n";
+        echo 'instanceMethod() called. $instanseProperty=' . $this->instanceProperty  . "\n";
     }
 }

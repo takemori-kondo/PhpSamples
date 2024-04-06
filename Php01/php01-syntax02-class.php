@@ -1,16 +1,16 @@
 <?php
 // PHP Version 8.1
 declare(strict_types=1);
+
 namespace Php01;
 
 /*
 PHP Specific Features
 
 ①
-PHPのオブジェクト指向とstaticの関係は他の言語と異なる。
-フィールドはstatic・インスタンスに分かれ他の言語と同様であるが、メソッドはインスタンス・staticメソッドには分かれない。
-<Class名>::、self::、static::、parent::いずれもいわゆる他の言語で言うところのインスタンスメソッドがコール可能である。
-オブジェクトメソッドか、staticに呼ばれるかは、呼び出し元の文脈で決まり、$thisも文脈に従う。
+PHPのオブジェクト指向は他の言語と異なる
+・staticメソッドはstaticメソッドでオーバーライドできる
+・staticメソッドをインスタンスから呼び出せる。この時、型は動的型で呼び出した扱いになる
 
 ②
 ErrorExceptionなどの標準クラスは直接¥を書く形式（¥ErrorException）がわかりやすい
@@ -31,33 +31,37 @@ foreach          インスタンスに対してforeach可能
 ==               同じ型であり、全てのプロパティが==比較でTrueかを調べる
 ===              参照一致かどうか
 */
+
 require_once 'myautoload.php';
 
 use Php01\Classes\MyClass;
 use Php01\Classes\MyClass2;
 
-echo '<h1>'.__FILE__.'</h1>'."\n";
+echo '<h1>' . __FILE__ . '</h1>' . "\n";
 
-function callInstanceMethod(MyClass $obj) : void {
+function callInstanceMethod(MyClass $obj): void
+{
     $obj->instanceMethod();
 }
 
+echo "<pre>\n";
 var_dump(MyClass::$staticProperty);
-echo "<br>\n";
 MyClass::staticMethod();
-echo "<br>\n";
-
 $a = new MyClass('Foo');
 callInstanceMethod($a);
 $b = new MyClass('Bar');
 callInstanceMethod($b);
 $c = new MyClass2('Baz');
 callInstanceMethod($c);
-echo "<br>\n";
-
 var_dump($a);
-echo "<br>\n";
 var_dump($b);
-echo "<br>\n";
 var_dump($c);
-echo "<br>\n";
+echo "</pre>\n";
+
+echo "<pre>\n";
+echo 'staticメソッドはインタンスからも呼び出せる。staticメソッドもオーバーライドの概念がある' . "\n";
+echo '$a->staticMethod() : ';
+$a->staticMethod();
+echo '$c->staticMethod() : ';
+$c->staticMethod();
+echo "</pre>\n";
