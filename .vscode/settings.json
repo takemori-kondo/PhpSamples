@@ -1,3 +1,23 @@
 {
-  "editor.tabSize": 4
+    "editor.tabSize": 4,
+    // common settings
+    "files.eol": "\n",
+    "editor.detectIndentation": false,
+    "editor.guides.indentation": true,
+    "editor.insertSpaces": true,
+    "editor.renderWhitespace": "boundary",
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0,
+    "editor.fontFamily": "MeiryoKe_Console, monospace",
+    "git.ignoreMissingGitWarning": true,
+    "terminal.integrated.fontFamily": "MeiryoKe_Console, monospace",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    // common settings(php)
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+    // PHP Debug
+    // -
+    // PHP Intelephense
+    "intelephense.environment.phpVersion": "8.1.0",
+    "intelephense.environment.shortOpenTag": false,
 }
