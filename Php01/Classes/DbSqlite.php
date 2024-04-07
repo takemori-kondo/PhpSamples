@@ -76,8 +76,8 @@ class DbSqlite extends Db
 
 
         // create schema & insert initial data
-        $result = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='sample_values'");
-        if ($result->rowCount() <= 0) {
+        $result = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='sample_values'")->fetchAll((\PDO::FETCH_ASSOC));
+        if (count($result) <= 0) {
             $pdo->exec("CREATE TABLE sample_values(id INTEGER PRIMARY KEY, name)");
             $names = ['Alice', 'Bob', 'Carol', 'Dave'];
             $stmt = $pdo->prepare("INSERT INTO sample_values(name) values(:name)");

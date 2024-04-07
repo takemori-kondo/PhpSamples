@@ -69,15 +69,15 @@ class DbMysql extends Db
         $pdo = $this->getPdo();
 
         // create db
-        $result = $pdo->query("SHOW DATABASES LIKE 'php_sample'");
-        if ($result->rowCount() <= 0) {
+        $result = $pdo->query("SHOW DATABASES LIKE 'php_sample'")->fetchAll(\PDO::FETCH_ASSOC);
+        if (count($result) <= 0) {
             $pdo->exec("CREATE DATABASE php_sample");
         }
         $pdo->exec("USE php_sample");
 
         // create schema & insert initial data
-        $result = $pdo->query("SHOW TABLES LIKE 'sample_values'");
-        if ($result->rowCount() <= 0) {
+        $result = $pdo->query("SHOW TABLES LIKE 'sample_values'")->fetchAll(\PDO::FETCH_ASSOC);
+        if (count($result) <= 0) {
             $pdo->exec("CREATE TABLE sample_values(id BIGINT AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY(id))");
             $names = ['Alice', 'Bob', 'Carol', 'Dave'];
             $stmt = $pdo->prepare("INSERT INTO sample_values(name) values(:name)");
