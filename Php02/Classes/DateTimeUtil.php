@@ -1,6 +1,7 @@
 <?php
 // PHP Version 8.1
 declare(strict_types=1);
+
 namespace Php02\Classes;
 
 class DateTimeUtil

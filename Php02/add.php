@@ -1,6 +1,7 @@
 <?php
 // PHP Version 8.1
 declare(strict_types=1);
+
 namespace Php02;
 
 require_once 'myautoload.php';
@@ -15,6 +16,6 @@ foreach ($todos as $id => $assoc) {
         $updateTargetTodos["$id"] = $assoc;
     }
 }
-$stmt = DataSource::updateAllTodos($pdo, $updateTargetTodos);
-$stmt = DataSource::addTodo($pdo);
+$stmt = DataSource::updateAllTodos($updateTargetTodos);
+$stmt = DataSource::addTodo();
 header('Location: ./index.php');
