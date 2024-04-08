@@ -1,15 +1,6 @@
 <?php
-/**
- * Inquiry sample's inquiry-confirm.php.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
+// PHP Version 8.1
+declare(strict_types=1);
 
 namespace Php03;
 

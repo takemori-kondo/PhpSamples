@@ -1,20 +1,11 @@
 <?php
-/**
- * Inquiry sample's inquiry-confirm.php.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
+// PHP Version 8.1
+declare(strict_types=1);
 
 namespace Php03;
 
 require_once "vendor/autoload.php";
-require_once __DIR__.'/Email.php';
+require_once __DIR__ . '/Email.php';
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -25,6 +16,7 @@ $inquiryDetails = $_POST['inquiry-details'];
 try {
     // Let's use mail trapping service.
     // https://mailtrap.io/
+    // demo inbox > SMTP Settings > Show Credentials
     $host = 'smtp.mailtrap.io';
     $port = 2525;
     $user = '7387aad7ba7380';
@@ -40,11 +32,11 @@ try {
 下記内容にて、お問い合わせを受け付けました。
 EOT;
     $body .= "\n\n";
-    $body .= '名前'."\n".$name."\n\n";
-    $body .= 'メール'."\n".$email."\n\n";
-    $body .= '性別'."\n".$sex."\n\n";
-    $body .= 'お問い合わせ種類'."\n".$inquiryType."\n\n";
-    $body .= 'お問い合わせ内容'."\n".$inquiryDetails."\n\n";
+    $body .= '名前' . "\n" . $name . "\n\n";
+    $body .= 'メール' . "\n" . $email . "\n\n";
+    $body .= '性別' . "\n" . $sex . "\n\n";
+    $body .= 'お問い合わせ種類' . "\n" . $inquiryType . "\n\n";
+    $body .= 'お問い合わせ内容' . "\n" . $inquiryDetails . "\n\n";
 
     $smtp = new Email($host, $port, $user, $pass);
     $smtp->send($toList, null, null, $from, $fromName, $subject, $body);
@@ -52,5 +44,5 @@ EOT;
     $smtp->send(null, null, [$from], $from, $fromName, $subject, $body);
     header("Location: ./inquiry-complete.html");
 } catch (\Exception $e) {
-    header("Location: ./inquiry-error.php?error-text=".$e->getMessage());
+    header("Location: ./inquiry-error.php?error-text=" . $e->getMessage());
 }

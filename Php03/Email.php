@@ -1,20 +1,11 @@
 <?php
+// PHP Version 8.1
+declare(strict_types=1);
 
 namespace Php03;
 
 use PHPMailer\PHPMailer\PHPMailer as PHPMailer;
 
-/**
- * Email class.
- *
- * PHP Version 7.2
- *
- * @category Foo
- * @package  None
- * @author   takemori <foo@bar.baz>
- * @license  https://bar.baz/ MIT License
- * @link     None
- */
 class Email
 {
     /**
@@ -65,6 +56,11 @@ class Email
      */
     public function send($toList, $ccList, $bccList, $from, $fromName, $subject, $body)
     {
+        // null coalescing
+        $toList = $toList ?? [];
+        $ccList = $ccList ?? [];
+        $bccList = $bccList ?? [];
+
         // Clear error, to, cc, bcc, attached files.
         $this->smtp_->ErrorInfo = '';
         $this->smtp_->clearAllRecipients();
