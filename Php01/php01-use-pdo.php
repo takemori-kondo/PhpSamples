@@ -11,7 +11,7 @@ use \Php01\Classes\DbSqlite;
 
 echo '<h1>' . __FILE__ . '</h1>' . "\n";
 
-$isMysql = true;
+$isMysql = false;
 if ($isMysql) {
     $db = new DbMysql();
     echo '<div>' . $db->getDbVersion() . '</div>' . "\n";
