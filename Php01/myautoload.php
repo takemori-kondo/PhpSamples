@@ -9,13 +9,13 @@ declare(strict_types=1);
 3. プロジェクトのディレクトリ構造と名前空間が一致している
 4．クラスファイルは、クラス名.phpである（クラス名.class.phpではない）
 */
-spl_autoload_register(function($fqcn) {
-    $basePath = __Dir__.'/../';
+spl_autoload_register(function ($fqcn) {
+    $basePath = __Dir__ . '/../';
     $namespacePos = strripos($fqcn, "\\");
     $namespace = substr($fqcn, 0, $namespacePos);
     $className = substr($fqcn, $namespacePos + 1);
-    $path = $basePath.str_replace("\\", '/', $namespace).'/'.$className.'.php';
-    if(is_file($path)) {
+    $path = $basePath . str_replace("\\", '/', $namespace) . '/' . $className . '.php';
+    if (is_file($path)) {
         require_once $path;
     }
 });
